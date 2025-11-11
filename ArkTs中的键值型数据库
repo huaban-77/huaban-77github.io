@@ -1,0 +1,47 @@
+import distributedKVStore from '@ohos.data.distributedKVStore'
+
+//键值型数据库准备工作
+
+//1创建实例
+let kvManager : distributedKVStore.KVManager | undefined = undefined
+
+//2获取上下文对象
+let context = getContext(this)
+
+//3提供KVManager实例的配置信息，包括调用方的包名和应用的上下文
+let kvManagerConfig: distributedKVStore.KVManagerConfig = {
+  context: context, //应用的上下文
+  bundleName: 'hh'//调用方的包名
+}
+//4用写好的kvManagerConfig配置文件创建KVManager实例
+kvManager = distributedKVStore.createKVManager(kvManagerConfig)
+
+//5编写创建数据库的配置信息options
+const options: distributedKVStore.Options = {
+  createIfMissing: true, //无数据库时是否创建数据库，默认true
+  kvStoreType: distributedKVStore.KVStoreType.SINGLE_VERSION, //数据库类型（当前为单版本）
+  securityLevel: distributedKVStore.SecurityLevel.S3, //数据库防范等级
+}
+
+//6通过指定options和storeId，创建并获取分布式键值数据库
+kvManager.getKVStore<distributedKVStore.SingleKVStore>('name', options, (err, kvStore) => {
+  if (err) {
+    console.error('getKVStore failed, error code: ' + err.code + ', message: ' + err.message)
+    return
+  }
+  //7创建键值
+  let key1 = '键名1'
+  let key2 = '获取的数据'
+
+  //8将键值写入数据库,储存为(键名，键值)
+  kvStore.put(key1, key2, (err) => {
+    if (err) {
+      console.log('no')
+      return
+    }
+  })
+  //9获取指定键的值,通过键名获取数据
+  kvStore.get(key1, () => {
+    console.log('success');
+  })
+})
