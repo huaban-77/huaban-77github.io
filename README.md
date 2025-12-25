@@ -48,6 +48,6 @@
   </a>
 </p>
 
-<img src="https://komarev.com/ghpvc/?username=你的用户名&color=ffb7b2&style=flat-square&label=已有+COUNT+位小可爱到访" />
+<!-- <img src="https://komarev.com/ghpvc/?username=你的用户名&color=ffb7b2&style=flat-square&label=已有+COUNT+位小可爱到访" /> -->
 
 </div>
